@@ -62,15 +62,10 @@ a {
   height: 70vh;
   gap: 120px;
 }
-
-
-.weather-type-and-city-div {
-  /* border: 2px solid white; */
-}
-
 #city {
   font-weight: 800;
   font-size: 75px;
+  text-transform: capitalize;
  
 }
 
@@ -80,8 +75,8 @@ a {
 }
 
 #giphy-sticker {
-  width: 20vw;
-  height: 25vh;
+  width: 15vw;
+  height: 20vh;
 }
 
 #temperature {
