@@ -1,6 +1,6 @@
 import "./styles.css";
 import { displayWeatherDataOnDom } from "./dom.js";
-import { tempUnitToggle } from "./dom.js";
+import { tempUnitToggle, showLocationNotFoundMessage } from "./dom.js";
 import weatherImage from "./weather-image.jpg";
 
 const searchBar = document.querySelector("#search-input");
@@ -19,6 +19,7 @@ async function fetchWeatherData(location, unit) {
     console.log(weatherDataInJson);
     displayWeatherDataOnDom(weatherDataInJson);
   } catch (error) {
+    showLocationNotFoundMessage();
     console.log(error);
   }
 }

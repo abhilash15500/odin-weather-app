@@ -8,6 +8,7 @@ let feelLike = document.querySelector("#feels-like");
 let todaysHigh = document.querySelector("#todays-high");
 let humidity = document.querySelector("#humidity");
 let giphySticker = document.querySelector("#giphy-sticker");
+let locationError = document.querySelector("#location-not-found");
 
 async function displayWeatherDataOnDom(weatherDataInJson) {
   city.textContent = weatherDataInJson.address;
@@ -44,4 +45,16 @@ tempUnitToggle.addEventListener("change", () => {
   }
 });
 
-export { displayWeatherDataOnDom, tempUnitToggle, giphySticker };
+function showLocationNotFoundMessage() {
+  locationError.classList.add("visible");
+  setTimeout(() => {
+    locationError.classList.remove("visible");
+  }, 1500);
+}
+
+export {
+  displayWeatherDataOnDom,
+  tempUnitToggle,
+  giphySticker,
+  showLocationNotFoundMessage,
+};
