@@ -1,5 +1,5 @@
 // import { celsiusToFahrenheit , fahrenheitToCelsius} from "./tempConverter.js";
-import { fetchWeatherData } from "./index.js";
+import { fetchWeatherData,displayWeatherSticker} from "./index.js";
 
 let weatherCondition = document.querySelector("#weather-type");
 let city = document.querySelector("#city");
@@ -8,11 +8,20 @@ let tempUnitToggle = document.querySelector("#toggle");
 let feelLike = document.querySelector("#feels-like");
 let todaysHigh  = document.querySelector("#todays-high");
 let humidity = document.querySelector("#humidity");
+let giphySticker = document.querySelector("#giphy-sticker");
 
-function displayWeatherDataOnDom(weatherDataInJson) {
+
+
+ async function  displayWeatherDataOnDom(weatherDataInJson) {
     city.textContent = weatherDataInJson.address;
     weatherCondition.textContent = weatherDataInJson.currentConditions.conditions;
-    humidity.textContent = `Humidity :  ${weatherDataInJson.currentConditions.humidity}`;
+    
+    humidity.textContent = `Humidity :  ${weatherDataInJson.currentConditions.humidity}%`;
+
+    giphySticker.src =  await displayWeatherSticker(weatherDataInJson.currentConditions.conditions);
+    
+
+
 
     if(tempUnitToggle.checked === true) {
         // Round the temperatures to nearest whole number
@@ -45,5 +54,7 @@ tempUnitToggle.addEventListener("change",()=>{
       }
 
 });
+
+
 
 export { displayWeatherDataOnDom,tempUnitToggle };

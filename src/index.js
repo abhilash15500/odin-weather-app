@@ -3,7 +3,13 @@ import { displayWeatherDataOnDom } from "./dom.js";
 import { tempUnitToggle } from "./dom.js";
 
 
+
+fetchWeatherData("Mumbai","metric");
+
+
 const searchBar = document.querySelector("#search-input");
+
+
 
 async function fetchWeatherData(location,unit) {
     
@@ -12,23 +18,42 @@ async function fetchWeatherData(location,unit) {
     try {
         const weatherData = await fetch(apiUrl, { mode: "cors" });
         const weatherDataInJson = await weatherData.json(); 
+
+       
         console.log(weatherDataInJson);
         displayWeatherDataOnDom(weatherDataInJson);
+        
     } catch (error) {
         console.log(error);
     }
 }
 
 
+
+
+async function displayWeatherSticker(weatherCondition) {
+    let baseUrl = "https://api.giphy.com/v1/stickers/search?api_key=MUzjBZUJN1WQ7PnlpYY6uH4OLET8rAJL&q="
+    let giphyUrl = baseUrl+weatherCondition;
+    console.log(giphyUrl);
+    
+    let getStickerObject =  await fetch(giphyUrl, { mode: "cors" });
+    let getStickerObjectJson =  await getStickerObject.json();
+    console.log(getStickerObjectJson);
+    return getStickerObjectJson.data[0].url;  
+}
+
+
+
+
 searchBar.addEventListener("keydown",(event)=>{
     if (event.key === "Enter") {
         let unit;
        let location = searchBar.value;
-        if(tempUnitToggle.state === "F") {
-            unit = "us"
+        if(tempUnitToggle.checked) {
+            unit = "metric"
         }
         else {
-            unit = "metric";
+            unit = "us";
         }
        fetchWeatherData(location,unit);
     }   
@@ -36,14 +61,7 @@ searchBar.addEventListener("keydown",(event)=>{
 
 
 
-// intialize app 
-
-fetchWeatherData("Mumbai","metric");
-     
-
-
-
-export {fetchWeatherData};
+export {fetchWeatherData,displayWeatherSticker};
 
 
 
