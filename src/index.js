@@ -1,13 +1,11 @@
 import "./styles.css";
 import { displayWeatherDataOnDom } from "./dom.js";
 import { tempUnitToggle } from "./dom.js";
-
-
-
-fetchWeatherData("Mumbai","metric");
-
+import weatherImage from './weather-image.jpg';
 
 const searchBar = document.querySelector("#search-input");
+
+fetchWeatherData("Mumbai","metric");
 
 
 
@@ -19,7 +17,6 @@ async function fetchWeatherData(location,unit) {
         const weatherData = await fetch(apiUrl, { mode: "cors" });
         const weatherDataInJson = await weatherData.json(); 
 
-       
         console.log(weatherDataInJson);
         displayWeatherDataOnDom(weatherDataInJson);
         
@@ -30,19 +27,28 @@ async function fetchWeatherData(location,unit) {
 
 
 
-
-async function displayWeatherSticker(weatherCondition) {
-    let baseUrl = "https://api.giphy.com/v1/stickers/search?api_key=MUzjBZUJN1WQ7PnlpYY6uH4OLET8rAJL&q="
-    let giphyUrl = baseUrl+weatherCondition;
+async function getStickerUrl(weatherCondition) {
+    let baseUrl = "https://api.giphy.com/v1/stickers/search?api_key=MUzjBZUJN1WQ7PnlpYY6uH4OLET8rAJL&q=";
+    let giphyUrl = baseUrl + weatherCondition;
     console.log(giphyUrl);
     
-    let getStickerObject =  await fetch(giphyUrl, { mode: "cors" });
-    let getStickerObjectJson =  await getStickerObject.json();
-    console.log(getStickerObjectJson);
-    return getStickerObjectJson.data[0].url;  
+    try {
+        let getStickerObject = await fetch(giphyUrl, { mode: "cors" });
+        let getStickerObjectJson = await getStickerObject.json();
+        console.log(getStickerObjectJson);
+        
+       
+        if (getStickerObjectJson.data && getStickerObjectJson.data.length > 0) {
+            return getStickerObjectJson.data[0].images.fixed_height.url;
+        } else {
+            console.log("No stickers found. Using fallback image");
+            return weatherImage;
+        }
+    } catch (error) {
+        console.log(error);
+        return weatherImage;
+    }
 }
-
-
 
 
 searchBar.addEventListener("keydown",(event)=>{
@@ -61,7 +67,7 @@ searchBar.addEventListener("keydown",(event)=>{
 
 
 
-export {fetchWeatherData,displayWeatherSticker};
+export {fetchWeatherData,getStickerUrl};
 
 
 

@@ -1,5 +1,5 @@
-// import { celsiusToFahrenheit , fahrenheitToCelsius} from "./tempConverter.js";
-import { fetchWeatherData,displayWeatherSticker} from "./index.js";
+
+import { fetchWeatherData,getStickerUrl} from "./index.js";
 
 let weatherCondition = document.querySelector("#weather-type");
 let city = document.querySelector("#city");
@@ -18,7 +18,7 @@ let giphySticker = document.querySelector("#giphy-sticker");
     
     humidity.textContent = `Humidity :  ${weatherDataInJson.currentConditions.humidity}%`;
 
-    giphySticker.src =  await displayWeatherSticker(weatherDataInJson.currentConditions.conditions);
+    giphySticker.src =  await getStickerUrl(weatherDataInJson.currentConditions.conditions);
     
 
 
@@ -32,7 +32,6 @@ let giphySticker = document.querySelector("#giphy-sticker");
         
     }
     else if(tempUnitToggle.checked === false) {
-        // Conversion and rounding
         const temp = Math.round(weatherDataInJson.currentConditions.temp);
         const feelsLike = Math.round(weatherDataInJson.currentConditions.feelslike);
         const todaysHighTemp = Math.round(weatherDataInJson.days[0].tempmax);
@@ -57,4 +56,4 @@ tempUnitToggle.addEventListener("change",()=>{
 
 
 
-export { displayWeatherDataOnDom,tempUnitToggle };
+export { displayWeatherDataOnDom,tempUnitToggle,giphySticker};
