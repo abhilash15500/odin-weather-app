@@ -65,6 +65,7 @@ a {
 #weather-type {
   font-size: clamp(2rem, 2.5vw, 3rem);
   font-weight: 500;
+  
 }
 
 #giphy-sticker {
@@ -81,12 +82,15 @@ sup {
   font-size: 35px;
 }
 
+
+
 .small-weather-card {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 40px;
+  width: 500px;
 }
 
 #more-weather-info {
