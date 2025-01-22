@@ -1,5 +1,5 @@
 import "./styles.css";
-import { displayWeatherDataOnDom } from "./dom.js";
+import { displayWeatherDataOnDom, clearSearchbarValue } from "./dom.js";
 import { tempUnitToggle, showLocationNotFoundMessage } from "./dom.js";
 import weatherImage from "./weather-image.jpg";
 
@@ -56,8 +56,9 @@ searchBar.addEventListener("keydown", (event) => {
     } else {
       unit = "us";
     }
+    clearSearchbarValue();
     fetchWeatherData(location, unit);
   }
 });
 
-export { fetchWeatherData, getStickerUrl };
+export { fetchWeatherData, getStickerUrl, searchBar };

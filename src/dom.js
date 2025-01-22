@@ -1,4 +1,4 @@
-import { fetchWeatherData, getStickerUrl } from "./index.js";
+import { fetchWeatherData, getStickerUrl, searchBar } from "./index.js";
 
 let weatherCondition = document.querySelector("#weather-type");
 let city = document.querySelector("#city");
@@ -52,9 +52,14 @@ function showLocationNotFoundMessage() {
   }, 1500);
 }
 
+function clearSearchbarValue() {
+  searchBar.value = "";
+}
+
 export {
   displayWeatherDataOnDom,
   tempUnitToggle,
   giphySticker,
   showLocationNotFoundMessage,
+  clearSearchbarValue,
 };
